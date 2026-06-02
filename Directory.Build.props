@@ -17,5 +17,7 @@
     <Authors>bern3</Authors>
     <Company>EShop</Company>
     <Copyright>Copyright © $([System.DateTime]::Now.Year)</Copyright>
+
+	<NoWarn>$(NoWarn);CA1716</NoWarn>  
   </PropertyGroup>
 </Project>

@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/BuildingBlocks/EShop.BuildingBlocks.Application/EShop.BuildingBlocks.Application.csproj" Id="e2e68245-c502-4744-9f5e-5d8301e7bc9d" />
     <Project Path="src/BuildingBlocks/EShop.BuildingBlocks.Domain/EShop.BuildingBlocks.Domain.csproj" Id="d71ada89-089b-455e-8005-fe64abfefb2e" />
   </Folder>
 </Solution>

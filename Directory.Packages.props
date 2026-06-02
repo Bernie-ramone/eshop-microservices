@@ -3,61 +3,51 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
-
   <ItemGroup Label="ASP.NET Core">
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
   </ItemGroup>
-
   <ItemGroup Label="Entity Framework Core">
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0" />
   </ItemGroup>
-
   <ItemGroup Label="MediatR Validation">
-    <PackageVersion Include="MediatR" Version="12.4.1" />
-    <PackageVersion Include="FluentValidation" Version="11.10.0" />
-    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+    <PackageVersion Include="MediatR" Version="14.1.0" />
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
   </ItemGroup>
-
   <ItemGroup Label="Mapping">
     <PackageVersion Include="Mapster" Version="7.4.0" />
     <PackageVersion Include="Mapster.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
-
   <ItemGroup Label="Messaging">
     <PackageVersion Include="MassTransit" Version="8.3.4" />
     <PackageVersion Include="MassTransit.RabbitMQ" Version="8.3.4" />
   </ItemGroup>
-
   <ItemGroup Label="Caching">
     <PackageVersion Include="StackExchange.Redis" Version="2.8.22" />
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.0" />
   </ItemGroup>
-
   <ItemGroup Label="Observability">
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.3" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.10.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.10.0" />
   </ItemGroup>
-
   <ItemGroup Label="Resilience">
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.0.0" />
   </ItemGroup>
-
   <ItemGroup Label="API Docs">
     <PackageVersion Include="Scalar.AspNetCore" Version="2.0.5" />
   </ItemGroup>
-
   <ItemGroup Label="Health Checks">
     <PackageVersion Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Redis" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Rabbitmq" Version="9.0.0" />
   </ItemGroup>
-
   <ItemGroup Label="Testing">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="xunit" Version="2.9.2" />
