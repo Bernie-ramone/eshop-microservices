@@ -18,6 +18,6 @@
     <Company>EShop</Company>
     <Copyright>Copyright © $([System.DateTime]::Now.Year)</Copyright>
 
-	<NoWarn>$(NoWarn);CA1716</NoWarn>  
+	<NoWarn>$(NoWarn);CA1716;CA1848;CA1873;CA2016</NoWarn>  
   </PropertyGroup>
 </Project>
