@@ -6,4 +6,8 @@
     <Project Path="src/BuildingBlocks/EShop.BuildingBlocks.Infrastructure/EShop.BuildingBlocks.Infrastructure.csproj" Id="c6dc6a86-44aa-474d-88ec-2b67a6b46c5b" />
     <Project Path="src/BuildingBlocks/EShop.BuildingBlocks.Web/EShop.BuildingBlocks.Web.csproj" Id="365ad155-b9e4-4675-bc18-c899a9dbde1c" />
   </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Catalog/">
+    <Project Path="src/Services/Catalog/EShop.Catalog.Domain/EShop.Catalog.Domain.csproj" Id="0639e378-ab5c-43f7-9e76-764f55bc994b" />
+  </Folder>
 </Solution>
