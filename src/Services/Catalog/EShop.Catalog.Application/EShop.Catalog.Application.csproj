@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Mapster" />
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EShop.BuildingBlocks.Application\EShop.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\EShop.Catalog.Domain\EShop.Catalog.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
