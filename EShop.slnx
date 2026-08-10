@@ -10,5 +10,6 @@
   <Folder Name="/src/Services/Catalog/">
     <Project Path="src/Services/Catalog/EShop.Catalog.Application/EShop.Catalog.Application.csproj" Id="544b6fed-44a8-4ef6-96e7-3678395cc5f2" />
     <Project Path="src/Services/Catalog/EShop.Catalog.Domain/EShop.Catalog.Domain.csproj" Id="0639e378-ab5c-43f7-9e76-764f55bc994b" />
+    <Project Path="src/Services/Catalog/EShop.Catalog.Infrastructure/EShop.Catalog.Infrastructure.csproj" Id="bba420a4-8e98-4ab8-8187-b91792e74bca" />
   </Folder>
 </Solution>

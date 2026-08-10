@@ -1,33 +1,75 @@
 ﻿using EShop.BuildingBlocks.Application.Abstractions.Messaging;
 using EShop.BuildingBlocks.Application.Results;
+using EShop.Catalog.Application.Abstractions;
 using EShop.Catalog.Application.Products.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Catalog.Application.Products.GetPaged;
 
 /// <summary>
-/// Handler de listado paginado.
+/// Handler de listado paginado usando PROYECCIÓN directa (no carga agregados).
 ///
-/// IMPORTANTE: la implementación REAL de este handler depende de acceso
-/// directo al DbContext para proyecciones eficientes (Select a DTO con JOIN).
-/// Como el DbContext vive en Infrastructure (Subfase 2.3), este handler
-/// dependerá de una abstracción de "read model" que definiremos ahí.
-///
-/// Por ahora, dejamos la FORMA del handler (la interface que cumple) para
-/// que quede claro el contrato. La implementación completa con EF Core
-/// Projections la completamos en 2.3.
+/// Flujo:
+/// 1. Construye query base (filtro opcional por categoría).
+/// 2. Cuenta el total ANTES de paginar (para calcular TotalPages).
+/// 3. Aplica Skip/Take y proyecta directo a ProductDto con JOIN a Category.
+/// 4. Todo en UNA sola ida a BD para el conteo + otra para los datos
+///    (EF Core no puede combinar ambas en una query eficientemente).
 /// </summary>
 public sealed class GetProductsPagedQueryHandler
     : IQueryHandler<GetProductsPagedQuery, PagedResult<ProductDto>>
 {
-    // La implementación completa (con IApplicationDbContext o similar)
-    // se construye en la Subfase 2.3, donde SÍ tenemos el DbContext real.
-    // Aquí documentamos la INTENCIÓN y el contrato.
+    private readonly ICatalogReadContext _readContext;
 
-    public Task<Result<PagedResult<ProductDto>>> Handle(
+    public GetProductsPagedQueryHandler(ICatalogReadContext readContext)
+    {
+        _readContext = readContext;
+    }
+
+    public async Task<Result<PagedResult<ProductDto>>> Handle(
         GetProductsPagedQuery request,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException(
-            "Se completa en Subfase 2.3 con acceso directo a CatalogDbContext para proyecciones eficientes.");
+        // Query base compuesta - todavía NO se ejecuta contra la BD (IQueryable es lazy).
+        var query = _readContext.Products.AsQueryable();
+
+        if (request.CategoryId is not null)
+        {
+            var categoryId = new Domain.Categories.CategoryId(request.CategoryId.Value);
+            query = query.Where(p => p.CategoryId == categoryId);
+        }
+
+        // CountAsync ejecuta un SELECT COUNT(*) - eficiente, no trae filas.
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        // Proyección directa: JOIN a Category incluido en el SELECT, sin tracking,
+        // sin cargar el agregado completo. Esto es lo más eficiente posible.
+        var items = await query
+            .OrderBy(p => p.Name) // Orden determinístico - CRÍTICO para paginación consistente
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Join(
+                _readContext.Categories,
+                product => product.CategoryId,
+                category => category.Id,
+                (product, category) => new ProductDto(
+                    product.Id.Value,
+                    product.Sku.Value,
+                    product.Name,
+                    product.Description,
+                    product.Price.Amount,
+                    product.Price.Currency,
+                    category.Id.Value,
+                    category.Name,
+                    product.Status.ToString()))
+            .ToListAsync(cancellationToken);
+
+        var result = new PagedResult<ProductDto>(
+            items,
+            request.PageNumber,
+            request.PageSize,
+            totalCount);
+
+        return result;
     }
 }
